@@ -2,6 +2,7 @@ import logging
 from typing import Dict, List, Optional
 
 from numpy import ndarray
+import numpy as np
 from sklearn.metrics import roc_auc_score
 
 from emmental.utils.utils import pred_to_prob
@@ -28,7 +29,9 @@ def roc_auc_scorer(
       dict: ROC AUC score.
 
     """
-
+    if np.array_equal(np.unique(golds), np.array([1, 2])):
+        golds = golds - 1
+        
     gold_probs = pred_to_prob(golds, n_classes=probs.shape[1])
 
     try:

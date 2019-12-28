@@ -88,13 +88,13 @@ def build_slice_tasks(
     # (Note: indicator only has two classes, e.g, in the slice or out)
     for slice_name in slice_func_dict.keys():
         # Create task name
-        ind_task_name = f"{task.name}_slice:ind_{slice_name}"
+        ind_task_name = f"{task.name}_slice_ind_{slice_name}"
 
         # Create ind module
         ind_head_module_name = f"{ind_task_name}_head"
         ind_head_module = copy.deepcopy(slice_ind_head_module)
 
-        ind_head_dropout_module_name = f"{task.name}_slice:dropout_{slice_name}"
+        ind_head_dropout_module_name = f"{task.name}_slice_dropout_{slice_name}"
         ind_head_dropout_module = nn.Dropout(p=dropout)
 
         # Create module_pool
@@ -183,7 +183,7 @@ def build_slice_tasks(
     # Create slice predictor tasks
 
     # Create share predictor for all slice predictor
-    shared_pred_head_module_name = f"{task.name}_slice:shared_pred"
+    shared_pred_head_module_name = f"{task.name}_slice_shared_pred"
     shared_pred_head_module = nn.Linear(task_feature_size, task_cardinality)
 
     # Add slice specific module to slice_module_pool
@@ -191,11 +191,11 @@ def build_slice_tasks(
 
     for slice_name in slice_func_dict.keys():
         # Create task name
-        pred_task_name = f"{task.name}_slice:pred_{slice_name}"
+        pred_task_name = f"{task.name}_slice_pred_{slice_name}"
 
         # Create pred module
         pred_head_module_name = f"{pred_task_name}_head"
-        pred_transform_module_name = f"{task.name}_slice:transform_{slice_name}"
+        pred_transform_module_name = f"{task.name}_slice_transform_{slice_name}"
         pred_transform_module = nn.Linear(task_feature_size, task_feature_size)
 
         # Create module_pool
@@ -274,9 +274,9 @@ def build_slice_tasks(
     # Create attention module
     master_attention_module_name = f"{master_task_name}_attention"
     master_attention_module = SliceAttentionModule(
-        slice_ind_key="_slice:ind_",
-        slice_pred_key="_slice:pred_",
-        slice_pred_feat_key="_slice:transform_",
+        slice_ind_key="_slice_ind_",
+        slice_pred_key="_slice_pred_",
+        slice_pred_feat_key="_slice_transform_",
     )
 
     # Create module pool

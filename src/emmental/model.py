@@ -11,6 +11,7 @@ import torch.nn as nn
 from numpy import ndarray
 from torch import Tensor
 from torch.nn import ModuleDict
+from tqdm import tqdm
 
 from emmental.data import EmmentalDataLoader
 from emmental.meta import Meta
@@ -328,7 +329,7 @@ class EmmentalModel(nn.Module):
         task_to_label_dict = dataloader.task_to_label_dict
         uid = dataloader.uid
 
-        for batch_num, (X_bdict, Y_bdict) in enumerate(dataloader):
+        for batch_num, (X_bdict, Y_bdict) in tqdm(enumerate(dataloader), total=len(dataloader)):
             uid_bdict, loss_bdict, prob_bdict, gold_bdict = self.forward(
                 X_bdict[uid], X_bdict, Y_bdict, task_to_label_dict
             )

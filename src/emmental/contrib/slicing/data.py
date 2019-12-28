@@ -45,12 +45,12 @@ def add_slice_labels(
         ]
         for slice_name, slice_func in slice_func_dict.items():
             indicators = slice_func(dataloader.dataset)
-            slice_ind_name = f"{task.name}_slice:ind_{slice_name}"
-            slice_pred_name = f"{task.name}_slice:pred_{slice_name}"
+            slice_ind_name = f"{task.name}_slice_ind_{slice_name}"
+            slice_pred_name = f"{task.name}_slice_pred_{slice_name}"
 
-            pred_labels = indicators * labels
+            pred_labels = (indicators * labels)
             ind_labels = indicators
-            ind_labels[ind_labels == 0] = 2
+#             ind_labels[ind_labels == 0] = 2
 
             if dataloader.split == split and slice_name != "base":
                 ind_classes, ind_counts = np.unique(
