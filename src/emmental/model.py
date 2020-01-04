@@ -6,7 +6,7 @@ from collections.abc import Iterable
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 
 import numpy as np
-import tqdm
+from tqdm import tqdm
 import torch
 import torch.nn as nn
 from numpy import ndarray
