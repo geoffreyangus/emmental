@@ -6,6 +6,7 @@ from collections.abc import Iterable
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 
 import numpy as np
+import tqdm
 import torch
 import torch.nn as nn
 from numpy import ndarray
@@ -328,7 +329,7 @@ class EmmentalModel(nn.Module):
         task_to_label_dict = dataloader.task_to_label_dict
         uid = dataloader.uid
 
-        for batch_num, (X_bdict, Y_bdict) in enumerate(dataloader):
+        for batch_num, (X_bdict, Y_bdict) in tqdm(enumerate(dataloader), total=len(dataloader)):
             uid_bdict, loss_bdict, prob_bdict, gold_bdict = self.forward(
                 X_bdict[uid], X_bdict, Y_bdict, task_to_label_dict
             )

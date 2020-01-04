@@ -50,7 +50,7 @@ def add_slice_labels(
 
             pred_labels = indicators * labels
             ind_labels = indicators
-            ind_labels[ind_labels == 0] = 2
+            # ind_labels[ind_labels == 0] = 2
 
             if dataloader.split == split and slice_name != "base":
                 ind_classes, ind_counts = np.unique(
