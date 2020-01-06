@@ -1,6 +1,7 @@
 import logging
 from typing import Dict, List, Optional
 
+import numpy as np
 from numpy import ndarray
 from sklearn.metrics import roc_auc_score
 
